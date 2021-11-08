@@ -1,7 +1,6 @@
 package main
 
 import (
-	"art"
 	"bufio"
 	"fmt"
 	"os"
@@ -13,19 +12,19 @@ func main() {
 
 	if len(os.Args) != 3 || (os.Args[2] != "standard" && os.Args[2] != "shadow" && os.Args[2] != "thinkertoy") {
 		fmt.Println("Usage: go run . [STRING] [BANNER]")
-		fmt.Print("EX: go run . something standard")
+		fmt.Println("EX: go run . something standard")
 		os.Exit(0)
 	} else {
 
 		file, err := os.Open(os.Args[2] + ".txt")
 		if err != nil {
 			fmt.Println("Usage: go run . [STRING] [BANNER]")
-			fmt.Print("EX: go run . something standard")
+			fmt.Println("EX: go run . something standard")
 			os.Exit(0)
 		}
 		defer file.Close()
 
-		scanned := bufio.NewScanner(file) //reading file
+		scanned := bufio.NewScanner(file) // reading file
 
 		scanned.Split(bufio.ScanLines)
 
@@ -45,22 +44,31 @@ func main() {
 				id++
 			} else {
 				asciiChrs[id] = append(asciiChrs[id], line)
-
 			}
-
 		}
 
 		for i := 0; i < len(args); i++ {
 			if args[i] == 92 && args[i+1] == 110 {
-				art.Newline(string(args[:i]), asciiChrs)
-				art.Newline(string(args[i+2:]), asciiChrs)
+				Newline(string(args[:i]), asciiChrs)
+				Newline(string(args[i+2:]), asciiChrs)
 
 			}
 		}
 
-		if strings.Contains(args, "\\n") == false { //checking for new line within arguments
-			art.Newline(args, asciiChrs)
+		// checking for new line within arguments
+		if !strings.Contains(args, "\\n") {
+			Newline(args, asciiChrs)
 		}
 
+	}
+}
+
+func Newline(n string, y map[int][]string) {
+	// prints horizontally
+	for j := 0; j < len(y[32]); j++ {
+		for _, letter := range n {
+			fmt.Print(y[int(letter)][j])
+		}
+		fmt.Println()
 	}
 }
