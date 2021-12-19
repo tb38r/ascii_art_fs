@@ -1,6 +1,6 @@
 # Aasci Art_FS
 
-An extension to the main Aasci Art project, string received contains a second argument which contains the 
+An extension to the main Aasci Art project, string received now has a second argument which contains the desired
 </br>
 bannnertype(font), program returns the Aasci output satisfying the banner requirements of the user.
 </br>
